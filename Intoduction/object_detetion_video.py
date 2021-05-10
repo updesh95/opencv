@@ -9,7 +9,7 @@ import cv2
 import numpy as np
 def nothing(x):
     pass
-
+cap = cv2.VideoCapture(0);
 cv2.namedWindow("Tracking")
 cv2.createTrackbar("Lower Hue","Tracking", 0, 255,nothing)
 cv2.createTrackbar("Lower Saturation","Tracking", 0, 255,nothing)
@@ -18,7 +18,7 @@ cv2.createTrackbar("Upper Hue","Tracking", 255, 255,nothing)
 cv2.createTrackbar("Upper Saturation","Tracking", 255, 255,nothing)
 cv2.createTrackbar("Upper Value","Tracking", 255, 255,nothing)
 while True:
-    frame = cv2.imread("lena.jpg")
+    _, frame = cap.read()
     hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
     lh = cv2.getTrackbarPos("Lower Hue","Tracking")
     ls = cv2.getTrackbarPos("Lower Saturation", "Tracking")
@@ -41,4 +41,5 @@ while True:
     key = cv2.waitKey(1)
     if key == 27:
         break
+cap.release()
 cv2.destroyAllWindows()
